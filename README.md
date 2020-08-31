@@ -6,6 +6,11 @@
  #####	Pour installer la bibliothèque ng2-chart
  npm install --save ng2-charts
 
+#####	Pour installer bootstrap
+npm install --save bootstrap@4
+
+#####	Pour installer angular-material
+npm install @angular/material @angular/cdk @angular/animations --save
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.7.
 
