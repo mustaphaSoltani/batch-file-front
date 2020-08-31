@@ -11,7 +11,6 @@ import {FormControl} from '@angular/forms';
 })
 export class ChartComponent implements OnInit {
   data: any[] = [];
-  dataOrigin: any[] = [];
   year = new FormControl('');
   config: any;
   startDate = new FormControl('');
@@ -84,10 +83,10 @@ export class ChartComponent implements OnInit {
     this.origin = origin;
     this.batchFileService.getSumValueByDateAndOrigin('0', startDate.value, endDate.value, origin.value).subscribe(
       (response) => {
-        this.dataOrigin = response;
-        this.lineChartLabels1 = this.dataOrigin.map(x => x[1]);
-        this.lineChartData1 = [{data: this.dataOrigin.map(x => x[2]), label: 'Sum Value By Period Of ' + this.origin.value}];
-        this.config = {itemsPerPage: 7, currentPage: 1, totalItems: this.dataOrigin.length};
+        this.data = response;
+        this.lineChartLabels1 = this.data.map(x => x[1]);
+        this.lineChartData1 = [{data: this.data.map(x => x[2]), label: 'Sum Value By Period Of ' + this.origin.value}];
+        this.config = {itemsPerPage: 7, currentPage: 1, totalItems: this.data.length};
       },
       (error) => alert('API access problem ')
     );
