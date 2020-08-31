@@ -1,0 +1,43 @@
+<div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+
+
+
+
+<br>
+
+<div class="card mb-3">
+  <div class="card-header">
+     Batch Real Time Progress</div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+          <th>File Name</th>
+          <th class="w-5">Start Batch</th>
+          <th class="w-50">Time Progress</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>data.txt</td>
+
+          <td>
+            <div class="form-group">
+              <button  class="btn btn-success" (click)="startJob()">Start</button>
+            </div>
+          </td>
+          <td>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div> <br><br><br><br><br><br>
+
+  <div style=" bottom: 0; position: absolute" class="card-footer small text-muted">Updated yesterday at {{now}}</div>
+</div>
+

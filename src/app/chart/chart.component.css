@@ -1,0 +1,17 @@
+#div2{
+  visibility: hidden;
+  z-index:100;
+  position: fixed;
+  background: #e7ffec;
+  border: 2px solid #e679df;
+  float:right;
+  margin-left: 42%;
+  width: 40%;
+  height: 40%;
+}
+
+#div1{
+
+  background: #ffe7e8;
+  border: 2px solid #e66465;
+}
