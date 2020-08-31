@@ -17,9 +17,12 @@
           <td>{{person[0]}}</td>
           <td>{{person[1]}}</td>
         </tr>
-        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+<div id="footer">
+  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+</div>
+
