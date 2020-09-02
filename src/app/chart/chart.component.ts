@@ -10,6 +10,7 @@ import {FormControl} from '@angular/forms';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {
+  show = false;
   data: any[] = [];
   year = new FormControl('');
   config: any;
@@ -30,14 +31,11 @@ export class ChartComponent implements OnInit {
   lineChartLabels1: Label[] = [];
   lineChartOptions1 = { responsive: true};
   lineChartColors1: Color[] = [{borderColor: 'black', backgroundColor: 'rgba(255,255,0,0.28)',}];
-  lineChartLegend1 = true;
+  lineChartLegend1 = false;
   lineChartPlugins1 = [];
   lineChartType1 = 'line';
   constructor(private batchFileService: BatchFileService) {
   }
-
-
-
 
   ngOnInit() {
     this.batchFileService.getAllSources().subscribe(
@@ -48,8 +46,9 @@ export class ChartComponent implements OnInit {
   }
 
   getDataByYear(year) {
-    year = this.year.value;
-    this.batchFileService.getSumValueByTime(year, '', '').subscribe(
+    this.show = true;
+
+    this.batchFileService.getSumValueByTime(year.value, '', '').subscribe(
       (response) => {
         this.data = response;
         console.log('data       :' + this.data)
@@ -66,8 +65,7 @@ export class ChartComponent implements OnInit {
   }
 
   getDataByPeriod(startDate, endDate) {
-    this.startDate = startDate;
-    this.endDate = endDate;
+    this.show = true;
     this.batchFileService.getSumValueByTime('0', startDate.value, endDate.value).subscribe(
       (response) => {
         this.data = response;
@@ -80,12 +78,12 @@ export class ChartComponent implements OnInit {
   }
 
   getDataByPeriodOfOrigin(origin, startDate, endDate) {
-    this.origin = origin;
+    this.show = true;
     this.batchFileService.getSumValueByDateAndOrigin('0', startDate.value, endDate.value, origin.value).subscribe(
       (response) => {
         this.data = response;
-        this.lineChartLabels1 = this.data.map(x => x[1]);
-        this.lineChartData1 = [{data: this.data.map(x => x[2]), label: 'Sum Value By Period Of ' + this.origin.value}];
+        this.lineChartLabels1 = this.data.map(x => x[0]);
+        this.lineChartData1 = [{data: this.data.map(x => x[1]), label: 'Sum Value By Period Of ' + this.origin.value}];
         this.config = {itemsPerPage: 7, currentPage: 1, totalItems: this.data.length};
       },
       (error) => alert('API access problem ')
