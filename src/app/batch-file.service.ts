@@ -19,7 +19,7 @@ export class BatchFileService {
     return this.http.get(this.link + '/data');
   }
 
-  getSumValueByTime(year: any, startDate: any, endDate: any): Observable<any> {
+  getSumValuesByYear(year: any, startDate: any, endDate: any): Observable<any> {
     return this.http.get(this.link + '/sumValue?year=' + year + '&startDate=' + startDate + '&endDate=' + endDate);
   }
   getAllSources(): Observable<any>{

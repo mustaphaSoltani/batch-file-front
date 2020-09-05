@@ -36,19 +36,7 @@
   </div>
 </div>
 
-<div *ngIf="show">
-  <div id="div2" class="chart-wrapper">
-    <canvas baseChart
-            [datasets]="lineChartData"
-            [labels]="lineChartLabels"
-            [options]="lineChartOptions"
-            [colors]="lineChartColors"
-            [legend]="lineChartLegend"
-            [chartType]="lineChartType"
-            [plugins]="lineChartPlugins">
-    </canvas>
-  </div>
-
+<div >
   <div id="div1" class="chart-wrapper">
     <canvas baseChart
             [datasets]="lineChartData"
@@ -60,7 +48,12 @@
             [plugins]="lineChartPlugins">
     </canvas>
   </div>
-  <div class="card-body" >
+  <br>
+  <div *ngIf="origin.value" id="div2">
+      <canvas baseChart [datasets]="datasets" [labels]="labels" [options]="options" [chartType]="type">
+      </canvas>
+  </div>
+  <div class="card-body">
     <div class="table-responsive">
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
