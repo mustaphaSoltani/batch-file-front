@@ -12,37 +12,25 @@ import {FormControl} from '@angular/forms';
 export class ChartComponent implements OnInit {
   show = false;
   data: any[] = [];
-  dataSource: any[] = [];
   year = new FormControl('');
   config: any;
   startDate = new FormControl('');
   endDate = new FormControl('');
   sources = [];
-  origin = new FormControl('') ;
+  origin = new FormControl('');
 
   lineChartData: ChartDataSets[] = [];
   lineChartLabels: Label[] = [];
-  lineChartOptions = { responsive: true};
+  lineChartOptions = {responsive: true};
   lineChartColors: Color[] = [{borderColor: 'black', backgroundColor: 'rgba(255,255,0,0.28)',}];
   lineChartLegend = true;
   lineChartPlugins = [];
   lineChartType = 'line';
 
-  public type: ChartType = 'line';
-
-  public labels: Label[] = [];
-
-  public datasets: ChartDataSets[] = [];
-
-  public options: ChartOptions = {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    }
-  };
+  type: ChartType = 'line';
+  labels: Label[] = [];
+  datasets: ChartDataSets[] = [];
+  options: ChartOptions = {scales: {yAxes: [{ticks: {beginAtZero: true}}]}};
 
   constructor(private batchFileService: BatchFileService) {
   }
@@ -61,17 +49,18 @@ export class ChartComponent implements OnInit {
     this.batchFileService.getSumValuesByYear(year.value, '', '').subscribe(
       (response) => {
         this.data = response;
-        console.log('data       :' + this.data)
+        console.log('data       :' + this.data);
         this.lineChartLabels = this.data.map(x => x[0]);
-        console.log('this.lineChartLabels       :' + this.lineChartLabels)
+        console.log('this.lineChartLabels       :' + this.lineChartLabels);
         this.lineChartData = [{data: this.data.map(x => x[1]), label: 'Sum Values By Date for year ' + this.year.value}];
-        console.log('lineChartData       :' + this.lineChartData)
+        console.log('lineChartData       :' + this.lineChartData);
 
-        this.config = { itemsPerPage: 7, currentPage: 1, totalItems: this.data.length};
+        this.config = {itemsPerPage: 7, currentPage: 1, totalItems: this.data.length};
       },
       (error) => alert('API access problem ')
     );
   }
+
   pageChanged(event) {
     this.config.currentPage = event;
   }
@@ -83,7 +72,8 @@ export class ChartComponent implements OnInit {
         this.data = response;
         this.lineChartLabels = this.data.map(x => x[0]);
         this.lineChartData = [{data: this.data.map(x => x[1]), label: 'Sum Values between ' + startDate.value + ' and ' + endDate.value}];
-        this.config = { itemsPerPage: 7, currentPage: 1, totalItems: this.data.length};},
+        this.config = {itemsPerPage: 7, currentPage: 1, totalItems: this.data.length};
+      },
       (error) => alert('API access problem ')
     );
   }
@@ -92,17 +82,17 @@ export class ChartComponent implements OnInit {
     this.show = true;
     this.batchFileService.getSumValueByDateAndOrigin('0', startDate.value, endDate.value, origin.value).subscribe(
       (response) => {
-        this.dataSource = response;
-        this.labels = this.dataSource.map(x => x[0]);
+        this.data = response;
+        this.labels = this.data.map(x => x[0]);
         this.datasets = [
           {
             label: 'Sum Values of ' + origin.value + ' between ' + startDate.value + ' and ' + endDate.value,
-            data: this.dataSource.map(x => x[1]),
+            data: this.data.map(x => x[1]),
             backgroundColor: ['rgba(255, 159, 64, 0.2)'],
             borderColor: ['rgba(255, 99, 132, 1)'],
             borderWidth: 1
           }];
-      this.config = {itemsPerPage: 7, currentPage: 1, totalItems: this.data.length};
+        this.config = {itemsPerPage: 7, currentPage: 1, totalItems: this.data.length};
       },
       (error) => alert('API access problem ')
     );

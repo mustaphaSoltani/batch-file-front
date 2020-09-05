@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<div >
+<div *ngIf="show">
   <div id="div1" class="chart-wrapper">
     <canvas baseChart
             [datasets]="lineChartData"
@@ -48,28 +48,31 @@
             [plugins]="lineChartPlugins">
     </canvas>
   </div>
-  <br>
-  <div *ngIf="origin.value" id="div2">
-      <canvas baseChart [datasets]="datasets" [labels]="labels" [options]="options" [chartType]="type">
+  <br><br>
+  <div class="row">
+
+    <div id="div2" *ngIf="origin.value" class="col-5">
+      <canvas baseChart id="ch" [datasets]="datasets" [labels]="labels" [options]="options" [chartType]="type">
       </canvas>
-  </div>
-  <div class="card-body">
-    <div class="table-responsive">
-      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-        <thead>
-        <tr>
-          <th>Date</th>
-          <th class="w-9">Total Value</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let person of data | paginate: config">
-          <td>{{person[0]}}</td>
-          <td>{{person[1]}}</td>
-        </tr>
-        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
-        </tbody>
-      </table>
+    </div>
+    <div class="card-body col-7">
+      <div class="table-responsive">
+        <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+          <tr>
+            <th>Date</th>
+            <th class="w-9">Total Value</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let person of data | paginate: config">
+            <td>{{person[0]}}</td>
+            <td>{{person[1]}}</td>
+          </tr>
+          <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
